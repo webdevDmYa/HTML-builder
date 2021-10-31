@@ -18,6 +18,7 @@ stream.on('open', function () {
 							console.log(err)
 						}
 						let str = content;
+
 						fs.writeFile('./05-merge-styles/project-dist/bundle.css', str,
 							{
 								encoding: "utf8",
