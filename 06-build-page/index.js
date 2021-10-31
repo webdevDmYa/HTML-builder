@@ -68,6 +68,7 @@ stream.on('open', function () {
 				if (err2) {
 					console.log(err2)
 				}
+
 				fs.readdir('./06-build-page/assets', (err, files) => {
 					if (err) {
 						console.log(err)
@@ -79,44 +80,45 @@ stream.on('open', function () {
 							});
 						}
 					})
-				})
-				files2.forEach(dir => {
-					fs.mkdir(path.join(__dirname + '\\project-dist\\assets', `${dir}`),
-						{
-							recursive: true
-						}, (err) => {
-							if (err) {
-								return console.error(err);
-							}
-							fs.readdir(`./06-build-page/project-dist/assets/${dir}`, (err2, item2) => {
+					files.forEach(dir => {
+						fs.mkdir(path.join(__dirname + '\\project-dist\\assets', `${dir}`),
+							{
+								recursive: true
+							}, (err) => {
 								if (err) {
-									console.log(err)
+									return console.error(err);
 								}
-								fs.readdir(`./06-build-page/assets/${dir}`, (err1, item) => {
+								fs.readdir(`./06-build-page/project-dist/assets/${dir}`, (err2, item2) => {
 									if (err) {
 										console.log(err)
 									}
-									item2.forEach(file => {
-										if (!item.includes(file)) {
-											fs.unlink(`./06-build-page/project-dist/assets/${dir}/${file}`, (err) => {
-												if (err) throw err;
-											});
+									fs.readdir(`./06-build-page/assets/${dir}`, (err1, item) => {
+										if (err) {
+											console.log(err)
 										}
-									})
-									item.forEach(file => {
-										fs.copyFile(`./06-build-page/assets/${dir}/${file}`, `./06-build-page/project-dist/assets/${dir}/${file}`, (err) => {
-											if (err) {
-												console.log("Error Found:", err);
+										item2.forEach(file => {
+											if (!item.includes(file)) {
+												fs.unlink(`./06-build-page/project-dist/assets/${dir}/${file}`, (err) => {
+													if (err) throw err;
+												});
 											}
 										})
+										item.forEach(file => {
+											fs.copyFile(`./06-build-page/assets/${dir}/${file}`, `./06-build-page/project-dist/assets/${dir}/${file}`, (err) => {
+												if (err) {
+													console.log("Error Found:", err);
+												}
+											})
+										})
 									})
+
 								})
 
 							})
 
-						})
-
+					})
 				})
+
 			})
 
 		})
