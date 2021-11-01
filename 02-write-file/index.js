@@ -1,6 +1,7 @@
 const fs = require('fs');
 const process = require('process');
 const readline = require('readline');
+const path = require('path');
 const stdout = process.stdout;
 const stdin = process.stdin;
 let content;
@@ -16,9 +17,9 @@ stream.on('open', function () {
 	stdout.write('Welcome! Write you text:\n');
 	stdin.on('data', (data) => {
 		content = data.toString();
-		fs.open('./02-write-file/text.txt', 'a+', (err) => {
+		fs.open(path.dirname('text.txt'), 'a+', (err) => {
 			if (err) throw err;
-			fs.appendFile('./02-write-file/text.txt', content, (err) => {
+			fs.appendFile(path.join(__dirname, 'text.txt'), content, (err) => {
 				if (err) throw err;
 			})
 		});

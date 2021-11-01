@@ -1,14 +1,15 @@
 const fs = require('fs');
 const path = require('path');
 const stream = fs.createReadStream(__filename);
+let secretFolder = path.join(__dirname, 'secret-folder')
 stream.on('open', function () {
 	console.log('Hello in secret-folder this files:')
-	fs.readdir('./03-files-in-folder/secret-folder', (err, stats) => {
+	fs.readdir(secretFolder, (err, stats) => {
 		if (err) {
 			console.error(err)
 		}
 		let arr = stats.forEach(item => {
-			fs.stat(__dirname + '\\secret-folder\\' + item, (err, stats) => {
+			fs.stat(path.join(secretFolder, `${item}`), (err, stats) => {
 				if (err) {
 					console.error(err)
 					return
