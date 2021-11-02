@@ -16,7 +16,7 @@ stream.on('open', function () {
 				}
 				if (stats.isFile()) {
 
-					console.log(path.basename(item).split('.').slice(0, 1) + ' - ' + path.extname(item).split('.').slice(1, 2) + ' - ' + stats.size + 'kb')
+					console.log(path.basename(item).split('.').slice(0, 1) + ' - ' + path.extname(item).split('.').slice(1, 2) + ' - ' + Math.ceil((stats.size) / 1000) + 'kb')
 				}
 			})
 		})
